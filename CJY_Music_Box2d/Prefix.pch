@@ -1,0 +1,8 @@
+//
+// Prefix header for all source files of the 'CJY_Music_Box2d' target in the 'CJY_Music_Box2d' project
+//
+
+#ifdef __OBJC__
+	#import <Foundation/Foundation.h>
+	#import <UIKit/UIKit.h>
+#endif
