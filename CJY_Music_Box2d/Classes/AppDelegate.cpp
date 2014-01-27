@@ -1,35 +1,66 @@
-//
-//  CJY_Music_Box2dAppDelegate.cpp
-//  CJY_Music_Box2d
-//
-//  Created by CC on 14-1-26.
-//  Copyright __MyCompanyName__ 2014年. All rights reserved.
-//
-
 #include "AppDelegate.h"
 
-#include "cocos2d.h"
-#include "SimpleAudioEngine.h"
+#include <vector>
+#include <string>
+
 #include "HelloWorldScene.h"
-
+#include "AppMacros.h"
+#include "SimpleAudioEngine.h"
 USING_NS_CC;
+using namespace std;
 using namespace CocosDenshion;
-
-AppDelegate::AppDelegate()
-{
+AppDelegate::AppDelegate() {
 
 }
 
-AppDelegate::~AppDelegate()
+AppDelegate::~AppDelegate() 
 {
 }
 
-bool AppDelegate::applicationDidFinishLaunching()
-{
+bool AppDelegate::applicationDidFinishLaunching() {
     // initialize director
-    CCDirector *pDirector = CCDirector::sharedDirector();
-    pDirector->setOpenGLView(CCEGLView::sharedOpenGLView());
+    CCDirector* pDirector = CCDirector::sharedDirector();
+    CCEGLView* pEGLView = CCEGLView::sharedOpenGLView();
 
+    pDirector->setOpenGLView(pEGLView);
+
+    // Set the design resolution
+    pEGLView->setDesignResolutionSize(designResolutionSize.width, designResolutionSize.height, kResolutionShowAll);
+
+	CCSize frameSize = pEGLView->getFrameSize();
+    
+//    vector<string> searchPath;
+//
+//    // In this demo, we select resource according to the frame's height.
+//    // If the resource size is different from design resolution size, you need to set contentScaleFactor.
+//    // We use the ratio of resource's height to the height of design resolution,
+//    // this can make sure that the resource's height could fit for the height of design resolution.
+//
+//    // if the frame's height is larger than the height of medium resource size, select large resource.
+//	if (frameSize.height > mediumResource.size.height)
+//	{
+//        searchPath.push_back(largeResource.directory);
+//
+//        pDirector->setContentScaleFactor(MIN(largeResource.size.height/designResolutionSize.height, largeResource.size.width/designResolutionSize.width));
+//	}
+//    // if the frame's height is larger than the height of small resource size, select medium resource.
+//    else if (frameSize.height > smallResource.size.height)
+//    {
+//        searchPath.push_back(mediumResource.directory);
+//
+//        pDirector->setContentScaleFactor(MIN(mediumResource.size.height/designResolutionSize.height, mediumResource.size.width/designResolutionSize.width));
+//    }
+//    // if the frame's height is smaller than the height of medium resource size, select small resource.
+//	else
+//    {
+//        searchPath.push_back(smallResource.directory);
+//
+//        pDirector->setContentScaleFactor(MIN(smallResource.size.height/designResolutionSize.height, smallResource.size.width/designResolutionSize.width));
+//    }
+//
+//    // set searching path
+//    CCFileUtils::sharedFileUtils()->setSearchPaths(searchPath);
+//
     // turn on display FPS
     pDirector->setDisplayStats(true);
 
@@ -38,7 +69,6 @@ bool AppDelegate::applicationDidFinishLaunching()
 
     // create a scene. it's an autorelease object
     CCScene *pScene = HelloWorld::scene();
-
     // run
     pDirector->runWithScene(pScene);
 
@@ -46,17 +76,17 @@ bool AppDelegate::applicationDidFinishLaunching()
 }
 
 // This function will be called when the app is inactive. When comes a phone call,it's be invoked too
-void AppDelegate::applicationDidEnterBackground()
-{
+void AppDelegate::applicationDidEnterBackground() {
     CCDirector::sharedDirector()->stopAnimation();
-    SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->pauseAllEffects();
+
+    // if you use SimpleAudioEngine, it must be pause
+     SimpleAudioEngine::sharedEngine()->pauseBackgroundMusic();
 }
 
 // this function will be called when the app is active again
-void AppDelegate::applicationWillEnterForeground()
-{
+void AppDelegate::applicationWillEnterForeground() {
     CCDirector::sharedDirector()->startAnimation();
-    SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
-    SimpleAudioEngine::sharedEngine()->resumeAllEffects();
+
+    // if you use SimpleAudioEngine, it must resume here
+     SimpleAudioEngine::sharedEngine()->resumeBackgroundMusic();
 }

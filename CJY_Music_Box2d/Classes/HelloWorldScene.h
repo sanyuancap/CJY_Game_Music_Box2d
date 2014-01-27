@@ -1,47 +1,44 @@
-//
-//  HelloWorldScene.h
-//  CJY_Music_Box2d
-//
-//  Created by CC on 14-1-26.
-//  Copyright __MyCompanyName__ 2014年. All rights reserved.
-//
-#ifndef __HELLO_WORLD_H__
-#define __HELLO_WORLD_H__
+#ifndef __HELLOWORLD_SCENE_H__
+#define __HELLOWORLD_SCENE_H__
 
-// When you import this file, you import all the cocos2d classes
 #include "cocos2d.h"
-#include "Box2D.h"
+#include "SimpleAudioEngine.h"
+#include "Game4Key.h"
+#include "cocos-ext.h"
 
-class PhysicsSprite : public cocos2d::CCSprite
+#include "CCArmature/CCArmature.h"
+#include "CCArmature/CCBone.h"
+#include "CCArmature/animation/CCArmatureAnimation.h"
+#include "CCArmature/datas/CCDatas.h"
+#include "CCArmature/display/CCBatchNode.h"
+#include "CCArmature/display/CCDecorativeDisplay.h"
+#include "CCArmature/display/CCDisplayManager.h"
+#include "CCArmature/display/CCSkin.h"
+#include "CCArmature/physics/CCColliderDetector.h"
+#include "CCArmature/physics/CCPhysicsWorld.h"
+#include "CCArmature/utils/CCArmatureDataManager.h"
+#include "CCArmature/utils/CCConstValue.h"
+#include "CCArmature/utils/CCDataReaderHelper.h"
+#include "CCArmature/utils/CCTweenFunction.h"
+#include "CCArmature/external_tool/sigslot.h"
+USING_NS_CC;
+class HelloWorld : public cocos2d::CCLayer
 {
+protected:
+	CCParticleSystem*    m_emitter;
 public:
-    PhysicsSprite();
-    void setPhysicsBody(b2Body * body);
-    virtual bool isDirty(void);
-    virtual cocos2d::CCAffineTransform nodeToParentTransform(void);
-private:
-    b2Body* m_pBody;    // strong ref
-};
+    // Here's a difference. Method 'init' in cocos2d-x returns bool, instead of returning 'id' in cocos2d-iphone
+    virtual bool init();  
 
-class HelloWorld : public cocos2d::CCLayer {
-public:
-    ~HelloWorld();
-    HelloWorld();
-    
-    // returns a Scene that contains the HelloWorld as the only child
+    // there's no 'id' in cpp, so we recommend returning the class instance pointer
     static cocos2d::CCScene* scene();
     
-    void initPhysics();
-    // adds a new sprite at a given coordinate
-    void addNewSpriteAtPosition(cocos2d::CCPoint p);
+    // a selector callback
+    void menuCloseCallback(CCObject* pSender);
+    void toGameLayer();
+    // implement the "static node()" method manually
+    CREATE_FUNC(HelloWorld);
 
-    virtual void draw();
-    virtual void ccTouchesEnded(cocos2d::CCSet* touches, cocos2d::CCEvent* event);
-    void update(float dt);
-    
-private:
-    b2World* world;
-    cocos2d::CCTexture2D* m_pSpriteTexture; // weak ref
 };
 
-#endif // __HELLO_WORLD_H__
+#endif // __HELLOWORLD_SCENE_H__

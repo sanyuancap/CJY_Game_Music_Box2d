@@ -1,15 +1,7 @@
-//
-//  CJY_Music_Box2dAppDelegate.h
-//  CJY_Music_Box2d
-//
-//  Created by CC on 14-1-26.
-//  Copyright __MyCompanyName__ 2014年. All rights reserved.
-//
-
 #ifndef  _APP_DELEGATE_H_
 #define  _APP_DELEGATE_H_
 
-#include "CCApplication.h"
+#include "cocos2d.h"
 
 /**
 @brief    The cocos2d Application.
@@ -21,7 +13,6 @@ class  AppDelegate : private cocos2d::CCApplication
 public:
     AppDelegate();
     virtual ~AppDelegate();
-
 
     /**
     @brief    Implement CCDirector and CCScene init code here.
